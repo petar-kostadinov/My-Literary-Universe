@@ -2,64 +2,33 @@ import { Schema, model, Types } from "mongoose";
 import { validate } from "uuid";
 
 const maxYearAllowed = new Date().getFullYear() + 5;
-const validCharactersPattern = /^[a-zA-Z0-9 ]+$/;
+const validCharactersPattern = /^[A-Za-zА-Яа-я0-9\s]+$/;
 
 const bookShema = new Schema({
     title: {
         type: String,
-        required: [true, 'This field is required'],
-        validate: [validCharactersPattern, 'Only english letters,digits and whitespace are allowed!'],
-        minLength: [5, 'Title should be at least 5 characters long'],
+        required: [true, 'Полето е задължително'],
+        validate: [validCharactersPattern, 'Позволени са само букви, цифри и интервали!'],
+        minLength: [5, 'Дължината трябва да е минимум 5 символа'],
     },
-    category: {
+    author: {
         type: String,
-        required: [true, 'This field is required'],
-        enum: {
-            values: ['tv-show', 'animation', 'Book', 'documentary', 'short-film'],
-            message: (props) => `${props.value} is not a valid category!`
-        }
-    },
-    genre: {
-        type: String,
-        required: [true, 'This field is required'],
-        lowercase: true,
-        minLength: [5, 'Genre should be at least 5 characters long'],
-        validate: [validCharactersPattern, 'Only english letters,digits and whitespace are allowed!'],
-    },
-    director: {
-        type: String,
-        required: [true, 'This field is required'],
-        minLength: [5, 'Director should be at least 5 characters long'],
-        validate: [validCharactersPattern, 'Only english letters,digits and whitespace are allowed!'],
-    },
-    year: {
-        type: Number,
-        required: [true, 'This field is required'],
-        min: [1900, 'Book year cannot be less than 1900 year'],
-        max: [maxYearAllowed, `Year cannot be larger than ${maxYearAllowed}`],
+        required: [true, 'Полето е задължително'],
+        minLength: [5, 'Дължината трябва да е минимум 5 символа'],
+        validate: [validCharactersPattern, 'Позволени са само букви, цифри и интервали!'],
     },
     imageUrl: {
         type: String,
-        required: [true, 'Image Url i required'],
-        validate: [/^https?:\/\//, 'Invalid image Url'],
-    },
-    rating: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 10,
+        required: [true, 'Полето е задължително'],
+        validate: [/^https?:\/\//, 'Невалиден URL адрес на изображението'],
     },
     description: {
         type: String,
-        required: [true, 'Rating is required'],
-        maxLength: [1500, 'Description is too long!'],
-        minLength: [20, 'Descriptiion is too short!'],
-        validate: [validCharactersPattern, 'Only english letters,digits and whitespace are allowed!'],
+        required: [true, 'Полето е задължително'],
+        maxLength: [1500, 'Описанието е твърде дълго!'],
+        minLength: [20, 'Описанието е недостатъчно!'],
+        validate: [validCharactersPattern, 'Позволени са само букви, цифри и интервали!'],
     },
-    casts: [{
-        type: Types.ObjectId,
-        ref: 'Cast',
-    }],
     owner: {
         type: Types.ObjectId,
         ref: 'User',

@@ -9,10 +9,10 @@ userController.get('/register', (req, res) => {
 });
 
 userController.post('/register', async (req, res) => {
-    const { email, password, repass } = req.body;
+    const { username, password, repass } = req.body;
 
     try {
-        const token = await userService.register({ email, password, repass });
+        const token = await userService.register({ username, password, repass });
 
         res.cookie('auth', token);
 
@@ -22,7 +22,7 @@ userController.post('/register', async (req, res) => {
         res.render('user/register', {
             pageTitle: 'Register',
             error: getErrorMessage(err),
-            email
+            username
         });
     }
 
@@ -35,10 +35,10 @@ userController.get('/login', (req, res) => {
 });
 
 userController.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
     try {
-        const token = await userService.login(email, password);
+        const token = await userService.login(username, password);
 
         res.cookie('auth', token);
         res.redirect('/');
@@ -48,7 +48,7 @@ userController.post('/login', async (req, res) => {
         res.render('user/login', {
             pageTitle: 'Login',
             error: getErrorMessage(err),
-            email,
+            username,
         });
     }
 });

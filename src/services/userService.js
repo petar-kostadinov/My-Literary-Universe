@@ -6,7 +6,7 @@ import { generateAuthToken } from '../utils/authUtils.js';
 export default {
     async register(userData) {
 
-        const existingUser = await User.findOne({ email: userData.email });
+        const existingUser = await User.findOne({ username: userData.username });
         if (existingUser) {
             throw new Error('User already exist');
             
@@ -18,18 +18,18 @@ export default {
 
         return token;
     },
-    async login(email, password) {
+    async login(username, password) {
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ username });
 
         if (!user) {
-            throw new Error('No such user');
+            throw new Error('Няма такъв потребител');
         }
 
         const isValid = await bcrypt.compare(password, user.password);
 
         if (!isValid) {
-            throw new Error('Invalid password');
+            throw new Error('Невалидна парола');
         }
 
         const token = generateAuthToken(user);

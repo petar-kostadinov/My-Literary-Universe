@@ -2,18 +2,18 @@ import { Schema, model } from "mongoose";
 import bcrypt from 'bcrypt';
 
 const userSchema = new Schema({
-    name: {
+    username: {
         type: String,
-        required: [true, 'Email is required'],
+        required: [true, 'Полето е задължително'],
         unique: true,
-        //minLength: 10,
+        minLength: [4, 'Дължината трябва да е поне 6 символа'],
         //validate: [/@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/, 'Invalid Email Format']
     },
     password: {
         type: String,
         required: true,
-        validate: [/^[a-zA-Z0-9]+$/, 'Password should be alphanumeric'],
-        minLength: [6, 'Password should be at least 6 characters long!'],
+        validate: [/^[a-zA-Z0-9]+$/, 'Паролата трябва да съдържа букви или цифри'],
+        minLength: [6, 'Паролата трябва да е минимум 6 символа'],
     }
 });
 

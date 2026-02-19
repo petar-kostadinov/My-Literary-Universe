@@ -1,0 +1,38 @@
+{{setTitle 'Create'}}
+
+<section id="create-page">
+    <div class="createSection">
+        <div class="info">
+            <h2>Книгите са тихи учители - не бързат, не спорят, но променят начина, по който виждаш света.
+            </h2>
+        </div>
+
+        <form action="/books/create" method="POST" class="createForm">
+            <h2>Добавете книга</h2>
+            <ul class="noBullet">
+                <li>
+                    <label for="title">Заглавие:</label>
+                    <input type="text" class="inputFields" id="title" name="title" value="{{book.title}}" />
+                </li>
+                <li>
+                    <label for="author">Автор:</label>
+                    <input type="text" class="inputFields" id="author" name="author" value="{{book.author}}" />
+                </li>
+                <li>
+                    <label for="image">Корица:</label>
+                    <input type="text" class="inputFields" id="image" name="imageUrl" value="{{book.imageUrl}}" />
+                </li>
+                <li>
+                    <label for="description">Описание:</label>
+                    <textarea id="description" class="inputFields" name="description">{{book.description}}</textarea>
+                </li>
+
+                <li id="center-btn">
+                    <button id="create-btn">Добавете книга</button>
+                </li>
+            </ul>
+        </form>
+
+
+    </div>
+</section>
