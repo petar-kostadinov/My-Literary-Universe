@@ -8,7 +8,7 @@ export default {
 
         const existingUser = await User.findOne({ username: userData.username });
         if (existingUser) {
-            throw new Error('User already exist');
+            throw new Error('Потребителят вече съществува');
             
         };
         

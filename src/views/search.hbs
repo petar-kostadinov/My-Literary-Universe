@@ -1,10 +1,10 @@
 <section id="search">
-    <h1>Search</h1>
-    <form action="/movies/search" method="GET" class="form">
-        <input type="text" class="search" name="search" placeholder="Title..." value="{{filter.search}}">
-        <input type="text" name="genre" class="genre" placeholder="Genre..." value="{{filter.genre}}">
-        <input type="number" name="year" class="year" placeholder="Year..." value="{{filter.year}}">
-        <input type="submit" value="search">
+    <h1>Търсене</h1>
+    <form action="/books/search" method="GET" class="form">
+        <input type="text" class="search" name="search" placeholder="Заглавие..." value="{{filter.search}}">
+        <!--<input type="text" name="genre" class="genre" placeholder="Genre..." value="{{filter.title}}">-->
+        <input type="text" name="author" class="search" placeholder="Автор" value="{{filter.author}}">
+        <input type="submit" value="Търси">
     </form>
 </section>
 
@@ -12,11 +12,11 @@
     <div class="band">
 
         <!-- If there are posts for movie in the database display each of them -->
-        {{#each movies}}
-        {{>movie}}
+        {{#each books}}
+        {{>book}}
         {{else}}
         <div class="no-posts">
-            <p class="no-offer">There are no movies matched...</p>
+            <p class="no-offer">Няма съвпадения...</p>
         </div>
         {{/each}}
 

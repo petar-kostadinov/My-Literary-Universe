@@ -45,7 +45,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .info-edit>h2 {
-  padding-top: 150%;
+  padding-top: 40%;
   font-weight: bold;
   font-size: 23px;
 }

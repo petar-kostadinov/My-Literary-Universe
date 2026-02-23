@@ -1,6 +1,6 @@
 import express from 'express'
-import movieService from '../services/movieService.js';
-import castService from '../services/castService.js';
+import bookService from '../services/bookService.js';
+//import castService from '../services/castService.js';
 import { getCategoryOptionsViewData } from '../utils/movieUtils.js';
 import { isAuth } from '../middleware/authMiddleware.js';
 import { getErrorMessage } from '../utils/errorUtils.js';
@@ -40,11 +40,11 @@ bookcontroller.post('/create', isAuth, async (req, res) => {
 });
 
 bookcontroller.get('/:bookId/details', async (req, res) => {
-    const bookId = req.params.movieId;
+    const bookId = req.params.bookId;
 
     const userId = req.user?.id;
 
-    const book = await movieService.getOne(bookId);
+    const book = await bookService.getOne(bookId);
 
     const isOwner = book.owner?.equals(userId);
 
@@ -55,15 +55,18 @@ bookcontroller.get('/search', async (req, res) => {
 
     const filter = req.query;
 
+    console.log(filter);
+    
+
     const books = await bookService.getAll(filter);
 
     res.render('search', { books, filter, pageTitle: 'Search' });
 })
 
-bookcontroller.get('/:movieId/attach', isAuth, async (req, res) => {
+/*bookcontroller.get('/:bookId/attach', isAuth, async (req, res) => {
     const bookId = req.params.bookId;
 
-    const book = await movieService.getOne(bookId);
+    const book = await bookService.getOne(bookId);
 
     const casts = await castService.getAll({ exclude: book.casts });
 
@@ -79,9 +82,9 @@ bookcontroller.post('/:bookId/attach', isAuth, async (req, res) => {
 
     await bookService.attach(bookId, castId);
 
-    res.redirect(`/books/${movieId}/details`);
+    res.redirect(`/books/${bookId}/details`);
 
-});
+});*/
 
 bookcontroller.get('/:bookId/delete', isAuth, async (req, res) => {
 
@@ -126,7 +129,7 @@ bookcontroller.post('/:bookId/edit', isAuth, async (req, res) => {
 
     await bookService.update(bookId, bookData);
 
-    res.redirect(`/books/${movieId}/details`);
+    res.redirect(`/books/${bookId}/details`);
 });
 
 export default bookcontroller;

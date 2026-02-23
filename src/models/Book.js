@@ -2,12 +2,14 @@ import { Schema, model, Types } from "mongoose";
 import { validate } from "uuid";
 
 const maxYearAllowed = new Date().getFullYear() + 5;
-const validCharactersPattern = /^[A-Za-zА-Яа-я0-9\s]+$/;
+const validCharactersPattern = /^[^<>]+$/;
+const validAuthorCharacters = /^[A-Za-zА-Яа-я\s.\-']+$/;
 
 const bookShema = new Schema({
     title: {
         type: String,
         required: [true, 'Полето е задължително'],
+        unique: true,
         validate: [validCharactersPattern, 'Позволени са само букви, цифри и интервали!'],
         minLength: [5, 'Дължината трябва да е минимум 5 символа'],
     },
@@ -15,7 +17,7 @@ const bookShema = new Schema({
         type: String,
         required: [true, 'Полето е задължително'],
         minLength: [5, 'Дължината трябва да е минимум 5 символа'],
-        validate: [validCharactersPattern, 'Позволени са само букви, цифри и интервали!'],
+        validate: [validAuthorCharacters, 'Позволени са само букви, цифри и интервали!'],
     },
     imageUrl: {
         type: String,
